@@ -1,11 +1,11 @@
 import calendar from "./google.js";
 
 
-const createEvent = async (event) => {
+const createEvent = async (event, calendarId) => {
     try {
         console.log(event)
         const response = await calendar.events.insert({
-            calendarId: 'ef2f3a378bdc0e678843df69c37da6c4be7156372395182c787b291df35c0a5a@group.calendar.google.com',
+            calendarId,
             resource: event,
         });
 
@@ -16,10 +16,10 @@ const createEvent = async (event) => {
     }
 };
 
-const readEvents = async (startDate, endDate) => {
+const readEvents = async (startDate, endDate, calendarId) => {
     try {
         const response = await calendar.events.list({
-            calendarId: 'ef2f3a378bdc0e678843df69c37da6c4be7156372395182c787b291df35c0a5a@group.calendar.google.com',
+            calendarId,
             timeMin: startDate,
             timeMax: endDate,
             singleEvents: true,

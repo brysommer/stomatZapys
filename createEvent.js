@@ -1,6 +1,7 @@
 import { createEvent } from "./crud.js";
 import { dentalProcedures, escapeMarkdown } from "./keyboards.js";
-import { fromZonedTime, format } from 'date-fns-tz'
+import { fromZonedTime, format } from 'date-fns-tz';
+import data from './values.js'
 
 
 const generateUniversalCalendarLink = (googleEventLink) => {
@@ -58,7 +59,19 @@ const castomEvent = async (phone, procedureIndex, selectedDate, selectedTime) =>
             
         };
 
-        const response = await createEvent(event);
+        const doctor = procedure.doctor;
+
+        let response;
+
+        if (doctor === 'Терапевт') {
+
+            response = await createEvent(event, data.therapistCalendarId);
+
+        } else if (doctor === 'Ортодонт') {
+
+            response = await createEvent(event, data.ortodontCalendarId);
+
+        }
 
         const calendarLinks = generateUniversalCalendarLink(response.htmlLink);
 

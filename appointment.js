@@ -4,6 +4,7 @@ import { readEvents } from './crud.js';
 import getFutureEventsRange from './dateRange.js';
 import generateTimeKeyboard from './generateTimeKeyboard.js';
 import { dentalProcedures, generateCalendarKeyboard, generateMainMenu } from './keyboards.js';
+import valuesData from './values.js';
 
 const userStates = new Map(); // Використовуємо Map для збереження станів користувачів
 
@@ -57,8 +58,22 @@ const appointment = () => {
 
             const range = getFutureEventsRange(date[0], date[1], date[2]);
 
-            const todayEvents = await readEvents(range.startDate, range.endDate);
+            const selectedProcedure = dentalProcedures[procedureIndex];
+            const doctor = selectedProcedure.doctor;
 
+            let todayEvents;
+
+
+            if (doctor === 'Терапевт') {
+
+                todayEvents = await readEvents(range.startDate, range.endDate, valuesData.therapistCalendarId);
+
+            } else if (doctor === 'Ортодонт') {
+
+                todayEvents = await readEvents(range.startDate, range.endDate, valuesData.ortodontCalendarId);
+
+            }
+            
             console.log(todayEvents)
 
             bot.sendMessage(chatId, `⏰ *Оберіть час для дати:* _${selectedDate}_`, {

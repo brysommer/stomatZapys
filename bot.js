@@ -26,11 +26,30 @@ bot.on('message', (msg) => {
 
     switch (msg.text) {
         case '📝 Запис на прийом':
+            bot.sendMessage(chatId, '🦷 *Оберіть лікаря:*', {
+                parse_mode: 'Markdown',
+                reply_markup: {
+                    keyboard: [
+                        [{ text: 'Терапевт' }],
+                        [{ text: 'Ортодонт' }]
+                    ],
+                    resize_keyboard: true,
+                    one_time_keyboard: true,
+                }
+            });
+            break;
+        case 'Терапевт':
             bot.sendMessage(chatId, '🦷 *Оберіть процедуру:*', {
                 parse_mode: 'Markdown',
-                reply_markup: generateProcedureKeyboard(dentalProcedures),
+                reply_markup: generateProcedureKeyboard(dentalProcedures, 'Терапевт'),
             });              
             break;
+        case 'Ортодонт':
+                bot.sendMessage(chatId, '🦷 *Оберіть процедуру:*', {
+                    parse_mode: 'Markdown',
+                    reply_markup: generateProcedureKeyboard(dentalProcedures, 'Ортодонт'),
+                });              
+                break;
         case '💰 Прайс':
             bot.sendMessage(chatId, '💰 Прайс-лист');
             bot.sendMessage(chatId, `📋 [Переглянути повний прайс\\-лист](${escapeMarkdown('https://docs.google.com/spreadsheets/d/1hGshc6J9SEEANoRjPzDvkaL-7pAlXufrLemNk_rdAuY/edit?usp=sharing')})`, {

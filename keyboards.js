@@ -1,24 +1,35 @@
 import { addDays, format } from 'date-fns';
 
 const dentalProcedures = [
-    { name: 'Чистка зубів', duration: '30 хв' },
-    { name: 'Лікування карієсу', duration: '60 хв' },
-    { name: 'Відбілювання', duration: '45 хв' },    
-    { name: 'Консультація', duration: '15 хв' },
-    { name: 'Видалення зуба', duration: '50 хв' },
-    { name: 'Протезування', duration: '90 хв' },
+    { name: 'Чистка зубів', duration: '30 хв', doctor: 'Терапевт' },
+    { name: 'Лікування карієсу', duration: '60 хв', doctor: 'Терапевт' },
+    { name: 'Відбілювання', duration: '45 хв', doctor: 'Терапевт' },
+    { name: 'Видалення зуба', duration: '50 хв', doctor: 'Терапевт' },
+    { name: 'Протезування', duration: '90 хв', doctor: 'Ортодонт' },
+    { name: 'Професійна гігієна', duration: '40 хв', doctor: 'Терапевт' },
+    { name: 'Консультація ортодонта', duration: '30 хв', doctor: 'Ортодонт' },
+    { name: 'Консультація терапевта', duration: '30 хв', doctor: 'Терапевт' },
+    { name: 'Лікування кореневих каналів', duration: '120 хв', doctor: 'Терапевт' },
+    { name: 'Відбілювання зубів', duration: '60 хв', doctor: 'Терапевт' },
 ];
 
-const generateProcedureKeyboard = (procedures) => {
+const generateProcedureKeyboard = (procedures, doctor) => {
+    
     const keyboard = [];
     const buttonsPerRow = 2;
 
-    procedures.forEach((procedure, index) => {
+    // Фільтруємо процедури за лікарем
+    const filteredProcedures = procedures
+        .map((procedure, index) => ({ ...procedure, originalIndex: index })) // Додаємо оригінальний індекс до кожної процедури
+        .filter(procedure => procedure.doctor === doctor); // Фільтруємо за лікарем
+
+    filteredProcedures.forEach((procedure) => {
         const button = {
             text: `${procedure.name} (${procedure.duration})`,
-            callback_data: `procedure_${index}`
+            callback_data: `procedure_${procedure.originalIndex}` // Використовуємо оригінальний індекс
         };
 
+        // Додаємо кнопку в новий рядок клавіатури, якщо кількість кнопок у рядку перевищує 2
         if (!keyboard[keyboard.length - 1] || keyboard[keyboard.length - 1].length === buttonsPerRow) {
             keyboard.push([]);
         }
@@ -28,7 +39,7 @@ const generateProcedureKeyboard = (procedures) => {
     return {
         inline_keyboard: keyboard
     };
-}
+};
 
 const generateCalendarKeyboard = (startDate, procedureIndex, days = 14) => {
     const keyboard = [];
