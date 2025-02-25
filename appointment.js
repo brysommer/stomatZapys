@@ -120,7 +120,9 @@ const appointment = () => {
                 reply_markup: generateMainMenu()
             });
 
-            bot.sendMessage(valuesData.logsID, `${contact.first_name} записався на ${dentalProcedures[procedureIndex]}. Час запису ${selectedDate, selectedTime}`)
+            const procedure = dentalProcedures[procedureIndex]
+
+            bot.sendMessage(valuesData.logsID, `${contact.first_name} записався на ${procedure.name, procedure.duration, procedure.doctor}. Час запису ${selectedDate, selectedTime}`)
     
             // Видаляємо стан користувача після обробки
             userStates.delete(chatId);
