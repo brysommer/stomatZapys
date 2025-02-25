@@ -122,7 +122,7 @@ const appointment = () => {
 
             const procedure = dentalProcedures[procedureIndex]
 
-            bot.sendMessage(valuesData.logsID, `${contact.first_name} записався на ${procedure.name, procedure.duration, procedure.doctor}. Час запису ${selectedDate, selectedTime}`)
+            bot.sendMessage(valuesData.logsID, `${contact.first_name} записався на ${procedure.name} ${procedure.duration} ${procedure.doctor}. Час запису ${selectedDate} ${selectedTime}`)
     
             // Видаляємо стан користувача після обробки
             userStates.delete(chatId);
