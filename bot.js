@@ -57,8 +57,7 @@ bot.on('message', (msg) => {
             });
             break;
         case '📍 Як нас знайти':
-            bot.sendMessage(chatId, 'Ми знаходимося за адресою: 📍 Київ, вул. Гарна, 1.');
-            bot.sendVideo(chatId, 'BAACAgQAAxkBAANxZ5DWlgIgcVnf64dr01zB2lzSBKoAAjEDAAK29DRQQ_YPteTGnjk2BA');
+            bot.sendMessage(chatId, 'Ми знаходимося за адресою: 📍 Львів, Романчука 16');
             break;
         case '✉️ Написати нам':
             bot.sendMessage(chatId, 'Надішліть нам повідомлення, і ми швидко відповімо!');

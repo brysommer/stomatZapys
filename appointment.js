@@ -119,6 +119,8 @@ const appointment = () => {
                 parse_mode: 'MarkdownV2',
                 reply_markup: generateMainMenu()
             });
+
+            bot.sendMessage(valuesData.logsID, `${contact.first_name} записався на ${dentalProcedures[procedureIndex]}. Час запису ${selectedDate, selectedTime}`)
     
             // Видаляємо стан користувача після обробки
             userStates.delete(chatId);
