@@ -129,19 +129,18 @@ const appointment = () => {
 
             let calendarLink = "";
             if (procedure.doctor === "Терапевт") {
-            calendarLink = therapistCalendar;
+            calendarLink = `📅 [Календар лікаря](${therapistCalendar})`;
             } else if (procedure.doctor === "Ортодонт") {
-            calendarLink = orthodontistCalendar;
+            calendarLink = `📅 [Календар лікаря](${orthodontistCalendar})`;
             }
 
             const escapeMarkdown = (text) => {
             return text.replace(/[_*[\]()~`>#\+\-=|{}.!]/g, '\\$&'); // Екранування спецсимволів
             };
 
-            // Відправляємо перше повідомлення з форматуванням MarkdownV2
             bot.sendMessage(
             valuesData.logsID, 
-            `📌 *Новий запис!*  
+            `📌 *Новий запис*  
             👤 *Клієнт:* ${escapeMarkdown(contact.first_name)}  
             💆‍♂️ *Послуга:* ${escapeMarkdown(procedure.name)}  
             ⏳ *Тривалість:* ${escapeMarkdown(procedure.duration)}  
@@ -149,15 +148,10 @@ const appointment = () => {
             📅 *Дата:* ${escapeMarkdown(selectedDate)}  
             ⏰ *Час:* ${escapeMarkdown(selectedTime)}  
 
-            ✅ Ваш запис успішно створено!`,
+            ✅ Ваш запис успішно створено  
+            ${calendarLink}`,
             { parse_mode: "MarkdownV2" }
             );
-
-            // Відправляємо друге повідомлення без MarkdownV2 з посиланням на календар
-            if (calendarLink) {
-            bot.sendMessage(valuesData.logsID, `📅 Календар лікаря: ${calendarLink}`);
-            }
-
 
 
     
