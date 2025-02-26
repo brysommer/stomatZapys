@@ -129,25 +129,30 @@ const appointment = () => {
 
             let calendarLink = "";
             if (procedure.doctor === "Терапевт") {
-            calendarLink = `📅 [Календар лікаря](<${therapistCalendar}>)`;
+            calendarLink = `📅 [Календар лікаря](${therapistCalendar})`;
             } else if (procedure.doctor === "Ортодонт") {
-            calendarLink = `📅 [Календар лікаря](<${orthodontistCalendar}>)`;
+            calendarLink = `📅 [Календар лікаря](${orthodontistCalendar})`;
             }
+
+            const escapeMarkdown = (text) => {
+            return text.replace(/[_*[\]()~`>#\+\-=|{}.!]/g, '\\$&'); // Екранування спецсимволів
+            };
 
             bot.sendMessage(
             valuesData.logsID, 
-            `📌 *Новий запис!*  
-            👤 *Клієнт:* ${contact.first_name}  
-            💆‍♂️ *Послуга:* ${procedure.name}  
-            ⏳ *Тривалість:* ${procedure.duration}  
-            👨‍⚕️ *Лікар:* ${procedure.doctor}  
-            📅 *Дата:* ${selectedDate}  
-            ⏰ *Час:* ${selectedTime}  
+            `📌 *Новий запис\!*  
+            👤 *Клієнт:* ${escapeMarkdown(contact.first_name)}  
+            💆‍♂️ *Послуга:* ${escapeMarkdown(procedure.name)}  
+            ⏳ *Тривалість:* ${escapeMarkdown(procedure.duration)}  
+            👨‍⚕️ *Лікар:* ${escapeMarkdown(procedure.doctor)}  
+            📅 *Дата:* ${escapeMarkdown(selectedDate)}  
+            ⏰ *Час:* ${escapeMarkdown(selectedTime)}  
 
-            ✅ Ваш запис успішно створено!  
-            ${calendarLink}`
-            , { parse_mode: "MarkdownV2" }
+            ✅ Ваш запис успішно створено\!  
+            ${calendarLink}`,
+            { parse_mode: "MarkdownV2" }
             );
+
 
     
             // Видаляємо стан користувача після обробки
