@@ -122,7 +122,33 @@ const appointment = () => {
 
             const procedure = dentalProcedures[procedureIndex]
 
-            bot.sendMessage(valuesData.logsID, `${contact.first_name} записався на ${procedure.name} ${procedure.duration} ${procedure.doctor}. Час запису ${selectedDate} ${selectedTime}`)
+
+
+            const therapistCalendar = "https://calendar.google.com/calendar/embed?src=1d4384ffe215c68239994d46f710ccecaa3dabdb902db248c2acb511c9586bc4%40group.calendar.google.com&ctz=Europe%2FKiev";
+            const orthodontistCalendar = "https://calendar.google.com/calendar/embed?src=c8caa800bf872c7698069db579cc8155ef185d0587c5d2ace406eb795fd26f18%40group.calendar.google.com&ctz=Europe%2FKiev";
+
+            let calendarLink = "";
+            if (procedure.doctor === "Терапевт") {
+            calendarLink = `📅 [Календар лікаря](<${therapistCalendar}>)`;
+            } else if (procedure.doctor === "Ортодонт") {
+            calendarLink = `📅 [Календар лікаря](<${orthodontistCalendar}>)`;
+            }
+
+            bot.sendMessage(
+            valuesData.logsID, 
+            `📌 *Новий запис!*  
+            👤 *Клієнт:* ${contact.first_name}  
+            💆‍♂️ *Послуга:* ${procedure.name}  
+            ⏳ *Тривалість:* ${procedure.duration}  
+            👨‍⚕️ *Лікар:* ${procedure.doctor}  
+            📅 *Дата:* ${selectedDate}  
+            ⏰ *Час:* ${selectedTime}  
+
+            ✅ Ваш запис успішно створено!  
+            ${calendarLink}`
+            , { parse_mode: "MarkdownV2" }
+            );
+
     
             // Видаляємо стан користувача після обробки
             userStates.delete(chatId);
