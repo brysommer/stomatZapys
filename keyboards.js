@@ -43,12 +43,17 @@ const generateProcedureKeyboard = (procedures, doctor) => {
 
 const generateCalendarKeyboard = (startDate, procedureIndex, days = 14) => {
     const keyboard = [];
-    const buttonsPerRow = 7;
+    const buttonsPerRow = 5;
 
-    for (let i = 0; i < days; i++) {
-
+    for (let i = 0, addedDays = 0; addedDays < days; i++) {
         const date = addDays(startDate, i);
         const formattedDate = format(date, 'yyyy-MM-dd');
+        const dayOfWeek = date.getDay(); // 0 - неділя, 6 - субота
+
+        // Пропускаємо суботу (6) та неділю (0)
+        if (dayOfWeek === 0 || dayOfWeek === 6) {
+            continue;
+        }
 
         const button = {
             text: format(date, 'dd/MM'),
@@ -60,12 +65,14 @@ const generateCalendarKeyboard = (startDate, procedureIndex, days = 14) => {
         }
         keyboard[keyboard.length - 1].push(button);
 
+        addedDays++; // Лічильник реальних робочих днів
     }
 
     return {
         inline_keyboard: keyboard
     };
-}
+};
+
 
 const generateMainMenu = () => {
     return {
