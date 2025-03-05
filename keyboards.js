@@ -41,7 +41,7 @@ const generateProcedureKeyboard = (procedures, doctor) => {
     };
 };
 
-const generateCalendarKeyboard = (startDate, procedureIndex, days = 14) => {
+const generateCalendarKeyboard = (startDate, procedureIndex, days = 15) => {
     const keyboard = [];
     const buttonsPerRow = 5;
 
