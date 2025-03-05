@@ -46,7 +46,7 @@ const appointment = () => {
             const today = new Date();
             bot.sendMessage(chatId, `📅 *Оберіть дату для процедури:* _${procedure.name}_`, {
                 parse_mode: 'Markdown',
-                reply_markup: generateCalendarKeyboard(today, procedureIndex, 14),
+                reply_markup: generateCalendarKeyboard(today, procedureIndex, 15),
             });              
             bot.answerCallbackQuery(query.id);
     
