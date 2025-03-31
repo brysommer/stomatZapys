@@ -51,6 +51,7 @@ const appointment = () => {
             bot.answerCallbackQuery(query.id);
     
         } else if (data.startsWith('date_')) {
+            console.log(data)
     
             const [_, procedureIndex, selectedDate] = data.split('_');
 
