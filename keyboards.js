@@ -7,6 +7,7 @@ const dentalProcedures = [
     { name: 'Видалення зуба', duration: '50 хв', doctor: 'Терапевт' },
     { name: 'Професійна гігієна', duration: '40 хв', doctor: 'Терапевт' },
     { name: 'Корекція ортодонтичних апаратів', duration: '30 хв', doctor: 'Ортодонт' },
+    { name: 'Консультація ортодонта', duration: '30 хв', doctor: 'Ортодонт' },
     { name: 'Консультація терапевта', duration: '30 хв', doctor: 'Терапевт' },
     { name: 'Лікування кореневих каналів', duration: '120 хв', doctor: 'Терапевт' },
     { name: 'Відбілювання зубів', duration: '60 хв', doctor: 'Терапевт' },
